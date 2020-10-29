@@ -31,19 +31,76 @@ describe 'GenericStateMachine::DSL#describe' do
   end
 
   context 'Transitions' do
-    it 'can use #transition in block' do
+    it 'has #transitions' do
+      dsl = GenericStateMachine::DSL::StateMachineDSL.new
+
+      expect(dsl.respond_to?(:transitions)).to be_truthy
+    end
+
+    it 'accepts required parameters in #transition' do
       expect {
         GenericStateMachine.describe do
-          transition
+          transition from: :state, to: :state
         end
       }.to_not raise_error
     end
 
-    pending '#transition accepts parameters'
+    it 'accepts optional parameters in #transition' do
+      expect {
+        GenericStateMachine.describe do
+          transition from: :state, to: :state, condition: true
+        end
+      }.to_not raise_error
+    end
+
+    it 'has one valid transition after adding one' do
+      dsl = GenericStateMachine::DSL::StateMachineDSL.new
+      dsl.transition from: :state, to: :state
+
+      expect(dsl.transitions.count).to eq 1
+      expect(dsl.transitions.first).to be_a GenericStateMachine::DSL::Transition
+    end
+
+    it 'added transition has given values' do
+      dsl = GenericStateMachine::DSL::StateMachineDSL.new
+      dsl.transition from: :from_state, to: :to_state, condition: :some_condition
+      transition = dsl.transitions.first
+
+      expect(transition.from).to eq :from_state
+      expect(transition.to).to eq :to_state
+      expect(transition.condition).to eq :some_condition
+    end
   end
 
   context 'Hooks' do
-    pending 'Responds to #hook method'
-    pending '#hook accepts parameters'
+    it 'has #hooks' do
+      dsl = GenericStateMachine::DSL::StateMachineDSL.new
+
+      expect(dsl.respond_to?(:hooks)).to be_truthy
+    end
+
+    it 'accepts required parameters in #register' do
+      expect {
+        GenericStateMachine.describe do
+          register hook: :some_hook, handler: :some_func
+        end
+      }.to_not raise_error
+    end
+
+    it 'accepts optional parameters in #register' do
+      expect {
+        GenericStateMachine.describe do
+          register hook: :some_hook, handler: :some_func, condition: :foo_bar
+        end
+      }.to_not raise_error
+    end
+
+    it 'has one valid hook after adding one' do
+      dsl = GenericStateMachine::DSL::StateMachineDSL.new
+      dsl.register hook: :some_hook, handler: :some_func
+
+      expect(dsl.hooks.count).to eq 1
+      expect(dsl.hooks.first).to be_a GenericStateMachine::DSL::Hook
+    end
   end
 end
