@@ -2,7 +2,7 @@
 
 require_relative '../spec_helper'
 
-describe GenericStateMachine::History do
+describe 'GenericStateMachine::History' do
   context 'Object creation' do
   end
 

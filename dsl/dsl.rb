@@ -13,7 +13,7 @@ module GenericStateMachine
 
       _dsl = StateMachineDSL.create &block
 
-      GenericStateMachine::StateMachine.new
+      _create_state_machine _dsl
     end
 
     ##
@@ -24,6 +24,30 @@ module GenericStateMachine
     # Struct describing a hook
     #
     Hook = Struct.new(:name, :handler, :condition)
+
+    private
+
+    ##
+    # Actually create an instance of StateMachine using a DSL object
+    # @param [StateMachineDSL]
+    # @raise [GenericStateMachine::Errors::DSLError]
+    #
+    def _create_state_machine(dsl)
+      transitions = dsl.transitions.each do |t|
+        _transition_from_struct t
+      end
+
+      GenericStateMachine::StateMachineFactory.create start: dsl.starting,
+                                                      transitions: transitions, hooks: dsl.hooks
+    end
+
+    ##
+    # Helper creating a Transition instance
+    # @param [Transition] transition
+    #
+    def _transition_from_struct(transition)
+      GenericStateMachine::Transition.new transition.from, transition.to, transition.condition
+    end
   end
 end
 

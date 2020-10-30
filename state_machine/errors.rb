@@ -8,5 +8,7 @@ module GenericStateMachine
     class DSLError < GenericStateMachineError; end
     # StateError indicates problems assigning a state
     class StateError < GenericStateMachineError; end
+    # HookError indicates problems using a hook
+    class HookError < GenericStateMachineError; end
   end
 end
