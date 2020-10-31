@@ -10,5 +10,7 @@ module GenericStateMachine
     class StateError < GenericStateMachineError; end
     # HookError indicates problems using a hook
     class HookError < GenericStateMachineError; end
+    # StateMachineError is raised when errors happen inside the state machine
+    class StateMachineError < GenericStateMachineError; end
   end
 end

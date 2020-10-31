@@ -11,9 +11,9 @@ module GenericStateMachine
     def describe(&block)
       raise GenericStateMachine::Errors::DSLError, '#describe needs a block' unless block_given?
 
-      _dsl = StateMachineDSL.create &block
+      dsl = StateMachineDSL.create &block
 
-      _create_state_machine _dsl
+      _create_state_machine dsl
     end
 
     ##
@@ -33,7 +33,7 @@ module GenericStateMachine
     # @raise [GenericStateMachine::Errors::DSLError]
     #
     def _create_state_machine(dsl)
-      transitions = dsl.transitions.each do |t|
+      transitions = dsl.transitions.collect do |t|
         _transition_from_struct t
       end
 
