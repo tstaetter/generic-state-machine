@@ -26,7 +26,7 @@ module GenericStateMachine
         _validate_start_state start, transitions
         _validate_hooks(hooks) unless hooks.empty?
 
-        GenericStateMachine::StateMachine.new
+        GenericStateMachine::StateMachine.new start
       end
 
       private
