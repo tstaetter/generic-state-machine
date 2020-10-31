@@ -3,6 +3,7 @@
 Gem::Specification.new do |s|
   s.name        = 'generic-state-machine'
   s.version     = '0.1.0'
+  s.licenses    = ['MIT']
   s.date        = '2020-10-31'
   s.summary     = 'Generic state machine'
   s.description = 'Provides the possibility to create simple state machines'
