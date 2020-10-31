@@ -8,5 +8,5 @@ require_relative 'dsl/state_machine_dsl'
 require_relative 'dsl/dsl'
 
 module GenericStateMachine
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 end
