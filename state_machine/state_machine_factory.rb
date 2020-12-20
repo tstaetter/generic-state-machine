@@ -51,9 +51,13 @@ module GenericStateMachine
 
       ##
       # Helper method validating if all elements are transitions
+      # @param [Array] transitions Array of transitions to be validated
       # raise GenericStateMachine::Errors::GenericStateMachineError if one of the elements is no Transition instance
       #
       def _validate_transitions(transitions)
+        raise GenericStateMachine::Errors::GenericStateMachineError, "Transitions can't be empty" if
+          transitions.empty?
+
         transitions.each do |t|
           raise GenericStateMachine::Errors::GenericStateMachineError, "Element '#{t}' isn't a transition" unless
               t.is_a?(GenericStateMachine::Transition)

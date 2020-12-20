@@ -37,8 +37,12 @@ module GenericStateMachine
         _transition_from_struct t
       end
 
+      hooks = dsl.hooks.collect do |h|
+        _hook_from_struct h
+      end
+
       GenericStateMachine::StateMachineFactory.create start: dsl.starting,
-                                                      transitions: transitions, hooks: dsl.hooks
+                                                      transitions: transitions, hooks: hooks
     end
 
     ##
@@ -47,6 +51,14 @@ module GenericStateMachine
     #
     def _transition_from_struct(transition)
       GenericStateMachine::Transition.new transition.from, transition.to, transition.condition
+    end
+
+    ##
+    # Helper creating a Hook instance
+    # @param [Hook] hook
+    #
+    def _hook_from_struct(hook)
+      GenericStateMachine::Hook.new hook.name, hook.handler, hook.condition
     end
   end
 end

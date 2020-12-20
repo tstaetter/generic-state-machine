@@ -45,3 +45,8 @@ GenericStateMachine.describe do
   start from: :some_state
 end
 ```
+
+## Roadmap
+
+* Add hooks per state (e.g. :after_transition_start_state)
+* Add possibility to freeze the complete state machine (except #current)

@@ -17,6 +17,8 @@ require 'simplecov'
 SimpleCov.start
 
 require_relative '../generic_state_machine'
+require_relative '../dsl/dsl'
+require_relative '../dsl/state_machine_dsl'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
