@@ -37,7 +37,7 @@ module GenericStateMachine
         _transition_from_struct t
       end
 
-      hooks = dsl.hooks.collect do |h|
+      hooks = dsl.hooks&.collect do |h|
         _hook_from_struct h
       end
 

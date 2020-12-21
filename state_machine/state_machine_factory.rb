@@ -24,7 +24,7 @@ module GenericStateMachine
 
         _validate_transitions transitions
         _validate_start_state start, transitions
-        _validate_hooks(hooks) unless hooks.empty?
+        _validate_hooks(hooks) unless hooks.nil?
 
         GenericStateMachine::StateMachine.new start
       end
@@ -69,7 +69,7 @@ module GenericStateMachine
       # raise GenericStateMachine::Errors::GenericStateMachineError if one of the elements is no Hook instance
       #
       def _validate_hooks(hooks)
-        hooks.each do |t|
+        hooks&.each do |t|
           raise GenericStateMachine::Errors::GenericStateMachineError, "Element '#{t}' isn't a hook" unless
               t.is_a?(GenericStateMachine::Hook)
         end
